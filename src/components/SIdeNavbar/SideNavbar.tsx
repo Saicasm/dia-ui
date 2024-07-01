@@ -1,55 +1,31 @@
 "use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Icons } from "@/components/Icons/Icons";
-
+import { appRoute } from "@/config/routing/app-route";
 const Sidenavbar = () => {
   const router = useRouter();
-
   return (
-    <div
-      id="default-sidebar"
-      className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
-      aria-label="Sidenav"
-    >
-      <div className="overflow-y-auto py-5 px-3 h-full bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-        <ul className="space-y-2">
-          <li>
-            <span className="ml-3">Diaconia</span>
-          </li>
-          <li>
-            <button
-              type="button"
-              className="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-              aria-controls="dropdown-pages"
-              data-collapse-toggle="dropdown-pages"
-              onClick={() => router.push("/home")}
+    <div className="top-0 left-0 z-40 w-60 h-screen transition-transform -translate-x-full sm:translate-x-0 ">
+      <div className="overflow-y-auto py-5 px-3 h-full bg-light-bg-primary border-r border-light-border-primary dark:bg-gray-800 dark:border-gray-700 flex flex-col justify-start">
+        <div className="flex m-5">
+          <div className="text-center  border-2 border-gray-50">Diaconia</div>
+        </div>
+        <div className="flex flex-col  justify-center align-middle mx-4">
+          {appRoute?.map((item, index) => (
+            <div
+              className="flex  justify-start items-center h-12  hover:cursor-pointer w-full text-base font-normal text-light-text-primary  rounded-lg transition duration-75 group hover:bg-light-bg-secondary dark:bg-dark-text-primary dark:hover:bg-dark-bg-secondary"
+              onClick={() => router.push(item.routePath)}
+              key={index}
             >
-              <Icons.home />
-              <span className="flex-1 ml-3 text-left whitespace-nowrap">
-                Home
+              <div className=" mx-2">{item.icon}</div>
+              <span className="  text-center whitespace-nowrap">
+                {item.name}
               </span>
-            </button>
-          </li>
-          <li>
-            <button
-              type="button"
-              className="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-              aria-controls="dropdown-sales"
-              data-collapse-toggle="dropdown-sales"
-              onClick={() => router.push("/search")}
-            >
-              <Icons.search />
-              <span className="flex-1 ml-3 text-left whitespace-nowrap">
-                Search
-              </span>
-            </button>
-          </li>
-        </ul>
+            </div>
+          ))}
+        </div>
       </div>
-      <div className="hidden absolute bottom-0 left-0 justify-center p-4 space-x-4 w-full lg:flex bg-white dark:bg-gray-800 z-20 border-r border-gray-200 dark:border-gray-700"></div>
     </div>
   );
 };
