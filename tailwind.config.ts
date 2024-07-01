@@ -29,7 +29,7 @@ const config: Config = {
           bg: {
             primary: "#F0F5F9",
             secondary: "#C9D6DF",
-            tertiary: "bfc7d1",
+            tertiary: "#bfc7d1",
           },
           text: {
             primary: "#1E2022",

@@ -15,8 +15,12 @@ export default function Home() {
   return (
     <RootLayout>
       <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-light-bg-primary bg-opacity-90">
-        <div className="flex flex-col">
-          <Upload onFileChange={handleFileChange} subtext="SVG, PNG or JPG">
+        <div className="flex flex-col w-96">
+          <Upload
+            onFileChange={handleFileChange}
+            subtext="SVG, PNG or JPG"
+            variant="secondary"
+          >
             Upload Image
           </Upload>
           <Button onClick={handleClick} variant="primary">
