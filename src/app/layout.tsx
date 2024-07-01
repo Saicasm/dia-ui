@@ -4,24 +4,21 @@ import "./globals.css";
 import Sidenavbar from "@/components/SIdeNavbar/SideNavbar";
 
 const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "Diaconia Image Analyzer MVP",
-  description:
-    "Takes in the Image and analyzes key components responsible for search",
-};
-
-export default function RootLayout({
-  children,
-}: Readonly<{
+interface RootLayoutProps {
+  /**
+   * The content for the layout to render
+   */
   children: React.ReactNode;
-}>) {
-  return (
-    <html lang="en">
-      <body className={inter.className}>
-        <Sidenavbar />
-        {children}
-      </body>
-    </html>
-  );
 }
+
+const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
+  return (
+    <div className=" min-h-screen mx-auto bg-opacity-90 bg-light-bg-primary">
+      <Sidenavbar />
+      <main className="max-h-full">{children}</main>
+
+      {/* <Footer /> */}
+    </div>
+  );
+};
+export default RootLayout;
