@@ -27,19 +27,20 @@ const config: Config = {
         },
         light: {
           bg: {
-            primary: "#EEF0F3",
-            secondary: "#F3F5F3",
+            primary: "#F0F5F9",
+            secondary: "#C9D6DF",
+            tertiary: "bfc7d1",
           },
           text: {
-            primary: "white",
-            secondary: "black",
+            primary: "#1E2022",
+            secondary: "#52616B",
           },
           accent: {
-            primary: "#C2DFE3",
-            secondary: "#120D31",
+            primary: "#788189",
+            secondary: "#e1e4e6",
           },
           border: {
-            primary: "#7F878C",
+            primary: "#C9D6DF",
             secondary: "bg-gray-500",
           },
         },
@@ -54,3 +55,13 @@ const config: Config = {
   plugins: [],
 };
 export default config;
+// --primary-100:#1E2022;
+// --primary-200:#34373b;
+// --primary-300:#F0F5F9;
+// --accent-100:#788189;
+// --accent-200:#e1e4e6;
+// --text-100:#1E2022;
+// --text-200:#52616B;
+// --bg-100:#F0F5F9;
+// --bg-200:#C9D6DF;
+// --bg-300:#bfc7d1;

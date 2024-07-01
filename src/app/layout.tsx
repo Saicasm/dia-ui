@@ -13,11 +13,9 @@ interface RootLayoutProps {
 
 const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
   return (
-    <div className=" min-h-screen mx-auto bg-opacity-90 bg-light-bg-primary">
+    <div className="min-h-screen mx-auto  bg-light-bg-tertiary dark:bg-dark-bg-primary flex flex-row">
       <Sidenavbar />
-      <main className="max-h-full">{children}</main>
-
-      {/* <Footer /> */}
+      <main className="max-h-full flex-1 ">{children}</main>
     </div>
   );
 };
