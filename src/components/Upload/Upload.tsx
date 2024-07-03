@@ -1,7 +1,7 @@
 import React from "react";
 import { Icons } from "../Icons/Icons";
 
-interface ButtonProps {
+interface UploadProps {
   /**
    * Optional click handler
    */
@@ -17,15 +17,17 @@ interface ButtonProps {
   name?: string;
   subtext?: string;
   variant: string;
+  uploadTypes?: string;
 }
 
-const Upload: React.FC<ButtonProps> = ({
+const Upload: React.FC<UploadProps> = ({
   onFileChange,
   children,
   className = "",
   name = "Upload",
   subtext = "",
   variant = "primary",
+  uploadTypes = "",
 }) => {
   function PrimaryVariant() {
     return (
@@ -42,6 +44,7 @@ const Upload: React.FC<ButtonProps> = ({
           id="file_input"
           type="file"
           style={{ background: "bg-light-bg-secondary" }}
+          accept={uploadTypes}
         />
         <p
           className="mt-1 text-sm text-light-text-primary dark:text-gray-300"
@@ -69,7 +72,13 @@ const Upload: React.FC<ButtonProps> = ({
               </p>
               <p className="text-xs ">{subtext}</p>
             </div>
-            <input id="dropzone-file" type="file" className="hidden" />
+            <input
+              id="dropzone-file"
+              type="file"
+              accept={uploadTypes}
+              className="hidden"
+              onChange={onFileChange}
+            />
           </label>
         </div>
       </>
