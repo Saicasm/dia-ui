@@ -10,10 +10,10 @@ export default function Home() {
   };
   const [file, setFile] = useState<File | null>(null);
 
-  const handleFileChange = (e: React.SyntheticEvent) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log("FIle", e.target.value);
   };
-  const handlePromptChange = (e: React.SyntheticEvent) => {
+  const handlePromptChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target as typeof e.target & {
       prompt: { value: string };
     };
