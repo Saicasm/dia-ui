@@ -4,7 +4,7 @@ import { useState } from "react";
 import Upload from "@/components/Upload/Upload";
 import RootLayout from "@/app/layout";
 import Textarea from "@/components/Textarea/Textarea";
-import { createImage, CreateData } from "@/service/home/HomeService";
+import { createImage, CreateData } from "@/service/home/homeService";
 import Loader from "@/components/Loader/Loader";
 
 export default function Home() {
