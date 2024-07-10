@@ -1,23 +1,41 @@
+"use client";
 import Button from "@/components/Button/Button";
-import { useState } from "react";
+import { use, useState } from "react";
 import Upload from "@/components/Upload/Upload";
 import RootLayout from "@/app/layout";
 import Textarea from "@/components/Textarea/Textarea";
+import { createImage, CreateData } from "@/service/home/HomeService";
+import Loader from "@/components/Loader/Loader";
 
 export default function Home() {
-  const handleClick = () => {
-    console.log("Button clicked!");
-  };
   const [file, setFile] = useState<File | null>(null);
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [answer, setAnswer] = useState<string>("Nothing yet");
+  const [prompt, setPrompt] = useState<string>("");
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("FIle", e.target.value);
+    console.log("FIle", e.target.files[0]);
+    setFile(e.target.files[0]);
   };
   const handlePromptChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const target = e.target as typeof e.target & {
-      prompt: { value: string };
-    };
     console.log("Prompt", e.target.value);
+    setPrompt(e.target.value);
+  };
+  const handleClick = async () => {
+    const userData: CreateData = {
+      question: prompt,
+      image: file,
+    };
+    try {
+      setIsLoading(true);
+      const response = await createImage(userData);
+      console.log(response);
+      setAnswer(response.answer);
+      setIsLoading(false);
+      // setSuccess(`User created successfully with ID: ${response.id}`);
+    } catch (error) {
+      setIsLoading(false);
+      // setError('Error creating user. Please try again.');
+    }
   };
   return (
     <RootLayout>
@@ -50,13 +68,13 @@ export default function Home() {
                   Submit
                 </Button>
               </div>
+
               <div className="m-4 flex w-full flex-col  items-center">
                 <div className="w-full text-sm font-medium leading-6 text-light-text-primary">
                   Result
                 </div>
-                <div className="w-full border-2 h-14">
-                  The Image contains red dot
-                </div>
+                {isLoading ? <Loader text="Loading" /> : ""}
+                <div className="w-full border-2 h-14">{answer}</div>
               </div>
             </div>
           </div>
