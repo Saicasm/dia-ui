@@ -1,6 +1,6 @@
 "use client";
 import Button from "@/components/Button/Button";
-import { use, useState } from "react";
+import { useState } from "react";
 import Upload from "@/components/Upload/Upload";
 import RootLayout from "@/app/layout";
 import Textarea from "@/components/Textarea/Textarea";
@@ -13,28 +13,34 @@ export default function Home() {
   const [answer, setAnswer] = useState<string>("Nothing yet");
   const [prompt, setPrompt] = useState<string>("");
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("FIle", e.target.files[0]);
-    setFile(e.target.files[0]);
+    if (e.target.files && e.target.files.length > 0) {
+      console.log("File", e.target.files[0]);
+      setFile(e.target.files[0]);
+    } else {
+      console.log("No file selected");
+    }
   };
   const handlePromptChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log("Prompt", e.target.value);
     setPrompt(e.target.value);
   };
   const handleClick = async () => {
-    const userData: CreateData = {
-      question: prompt,
-      image: file,
-    };
-    try {
-      setIsLoading(true);
-      const response = await createImage(userData);
-      console.log(response);
-      setAnswer(response.answer);
-      setIsLoading(false);
-      // setSuccess(`User created successfully with ID: ${response.id}`);
-    } catch (error) {
-      setIsLoading(false);
-      // setError('Error creating user. Please try again.');
+    if (file != null) {
+      const userData: CreateData = {
+        question: prompt,
+        image: file,
+      };
+      try {
+        setIsLoading(true);
+        const response = await createImage(userData);
+        console.log(response);
+        setAnswer(response.answer);
+        setIsLoading(false);
+        // setSuccess(`User created successfully with ID: ${response.id}`);
+      } catch (error) {
+        setIsLoading(false);
+        // setError('Error creating user. Please try again.');
+      }
     }
   };
   return (
