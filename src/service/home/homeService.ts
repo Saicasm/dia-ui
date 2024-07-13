@@ -10,7 +10,7 @@ export const createImage = async (imageUpload: CreateData): Promise<any> => {
   imageFormData.append("image", imageUpload.image);
   imageFormData.append("question", imageUpload.question);
   const response = await axiosClient.postForm(
-    `/api/v1/image/vqa`,
+    `/api/v1/image/vilt`,
     imageFormData
   );
   return response.data;
