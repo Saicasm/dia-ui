@@ -10,7 +10,7 @@ const Sidenavbar = () => {
     <div className="top-0 left-0 z-40 w-48 h-screen transition-transform -translate-x-full sm:translate-x-0 ">
       <div className="overflow-y-auto py-5 px-3 h-full bg-light-bg-primary border-r border-light-border-primary dark:bg-dark-bg-primary dark:border-dark-border-primary flex flex-col justify-start">
         <div className="flex  border-b-2 m-4 justify-center align-middle border-light-border-primary">
-          <div className="text-start h-12 ">Diaconia</div>
+          <div className="text-start h-12 font-bold">Diaconia</div>
         </div>
         <div className="flex flex-col my-4 justify-center align-middle mx-4">
           {appRoute?.map((item, index) => (

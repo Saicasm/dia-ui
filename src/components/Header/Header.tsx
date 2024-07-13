@@ -19,9 +19,9 @@ const Header: React.FC<HeaderProps> = ({
   className = "",
 }) => {
   return (
-    <div className="h-16 border-b-2 bg-light-bg-primary flex flex-row justify-between items-center">
+    <div className="h-16 border-b-4 bg-light-bg-primary flex flex-row justify-between items-center">
       <div className="flex">
-        <div className="h2 pl-2 font-bold	font-mono ">{title}</div>
+        <div className="h2 pl-2 font-bold">{title}</div>
       </div>
     </div>
   );
