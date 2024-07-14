@@ -6,6 +6,7 @@ import RootLayout from "@/app/layout";
 import Textarea from "@/components/Textarea/Textarea";
 import { createImage, CreateData } from "@/service/home/homeService";
 import Loader from "@/components/Loader/Loader";
+import { CopyBlock } from "react-code-blocks";
 
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
@@ -33,8 +34,8 @@ export default function Home() {
       try {
         setIsLoading(true);
         const response = await createImage(userData);
-        console.log(response);
-        setAnswer(response.answer);
+        console.log("asnwer", response.answer[0]);
+        setAnswer(response.answer[0]);
         setIsLoading(false);
         // setSuccess(`User created successfully with ID: ${response.id}`);
       } catch (error) {
@@ -45,7 +46,7 @@ export default function Home() {
   };
   return (
     <RootLayout>
-      <main className="flex min-h-screen flex-col items-center justify-between p-24 	 bg-light-bg-primary bg-opacity-90">
+      <main className="flex min-h-screen flex-col items-center justify-between 	 bg-light-bg-primary bg-opacity-90">
         <div className="flex shadow-md  flex-col items-center justify-between	w-full ">
           <div className="flex flex-col justify-evenly w-full ">
             <div className=" border-b-2 font-mono m-4">Image Search Engine</div>
@@ -80,7 +81,12 @@ export default function Home() {
                   Result
                 </div>
                 {isLoading ? <Loader text="Loading" /> : ""}
-                <div className="w-full border-2 h-14">{answer}</div>
+                {/* <div className="w-full border-2 h-14">{answer}</div> */}
+                {/* <CopyBlock
+                  text={JSON.stringify(answer)}
+                  language={"java"}
+                  wrapLongLines={true}
+                /> */}
               </div>
             </div>
           </div>

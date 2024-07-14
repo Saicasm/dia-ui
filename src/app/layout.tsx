@@ -14,12 +14,14 @@ interface RootLayoutProps {
 
 const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
   return (
-    <div className="min-h-screen mx-auto  bg-light-bg-primary dark:bg-dark-bg-primary flex flex-row">
-      {/* <div className="lg:hidden">
+    <div className="min-h-screen mx-auto  bg-light-bg-primary dark:bg-dark-bg-primary flex flex-col md:flex-row ">
+      <div className="md:hidden">
         <Header title={"Diaconia"} />
-      </div> */}
-      <Sidenavbar />
-      <main className="max-h-full flex-1 ">{children}</main>
+      </div>
+      <div className="hidden md:block">
+        <Sidenavbar />
+      </div>
+      <main className="max-h-full flex-1 p-12 md:p-24 ">{children}</main>
     </div>
   );
 };
