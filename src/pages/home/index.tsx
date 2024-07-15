@@ -11,6 +11,7 @@ import { CopyBlock, nord } from "react-code-blocks";
 import { Icons } from "@/components/Icons/Icons";
 import Alert from "@/components/Alerts/Alert";
 import { Models } from "@/util/enums";
+import Toggle from "@/components/Toggle/Toggle";
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -89,6 +90,9 @@ export default function Home() {
                   rowLength={2}
                   onChange={handlePromptChange}
                 />
+              </div>
+              <div className="m-4">
+                <Toggle />
               </div>
               <div className="m-4 ">
                 <Button onClick={handleClick} variant="primary">
