@@ -31,3 +31,10 @@ body {
     text-wrap: balance;
   }
 }
+
+@layer base {
+  
+  :root {
+   @apply dark:bg-dark-bg-primary dark:text-white bg-light-bg-primary;
+  }
+ }

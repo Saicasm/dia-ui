@@ -1,41 +1,51 @@
 "use client";
+import { CreateData, CreateDataResponseType } from "@/util/types/index";
 import Button from "@/components/Button/Button";
 import { useState } from "react";
 import Upload from "@/components/Upload/Upload";
 import RootLayout from "@/app/layout";
 import Textarea from "@/components/Textarea/Textarea";
-import { createImage, CreateData } from "@/service/home/homeService";
+import { createImage } from "@/service/home/homeService";
 import Loader from "@/components/Loader/Loader";
-import { CopyBlock } from "react-code-blocks";
-
+import { CopyBlock, nord } from "react-code-blocks";
+import { Icons } from "@/components/Icons/Icons";
+import Alert from "@/components/Alerts/Alert";
+import { Models } from "@/util/enums";
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [answer, setAnswer] = useState<string>("Nothing yet");
+  const [answer, setAnswer] = useState<CreateDataResponseType>({ result: [] });
   const [prompt, setPrompt] = useState<string>("");
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const [isAlertvisible, setIsAlertVisible] = useState<boolean>(false);
+  const [alertMessage, setAlertMessage] = useState<string>("");
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      console.log("File", e.target.files[0]);
-      setFile(e.target.files[0]);
+      await setFile(e.target.files[0]);
+      await setIsAlertVisible(true);
+      await setAlertMessage(
+        file ? `Image ${e.target.files[0]} has been sucessfully uploaded` : ""
+      );
     } else {
       console.log("No file selected");
     }
   };
   const handlePromptChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("Prompt", e.target.value);
     setPrompt(e.target.value);
+  };
+  const handleAlertVisibility = () => {
+    setIsAlertVisible(!isAlertvisible);
   };
   const handleClick = async () => {
     if (file != null) {
       const userData: CreateData = {
         question: prompt,
         image: file,
+        model: Models.VILT,
       };
       try {
         setIsLoading(true);
-        const response = await createImage(userData);
-        console.log("asnwer", response.answer[0]);
-        setAnswer(response.answer[0]);
+        const response: CreateDataResponseType = await createImage(userData);
+        setAnswer(response);
         setIsLoading(false);
         // setSuccess(`User created successfully with ID: ${response.id}`);
       } catch (error) {
@@ -44,8 +54,18 @@ export default function Home() {
       }
     }
   };
+  const code = `
+    // Code
+   ${JSON.stringify(answer)}
+  `;
   return (
     <RootLayout>
+      <Alert
+        duration={10}
+        isVisbile={isAlertvisible}
+        message={"Image has been successfully uploaded"}
+        onDismiss={handleAlertVisibility}
+      />
       <main className="flex min-h-screen flex-col items-center justify-between 	 bg-light-bg-primary bg-opacity-90">
         <div className="flex shadow-md  flex-col items-center justify-between	w-full ">
           <div className="flex flex-col justify-evenly w-full ">
@@ -80,13 +100,22 @@ export default function Home() {
                 <div className="w-full text-sm font-medium leading-6 text-light-text-primary">
                   Result
                 </div>
-                {isLoading ? <Loader text="Loading" /> : ""}
-                {/* <div className="w-full border-2 h-14">{answer}</div> */}
-                {/* <CopyBlock
-                  text={JSON.stringify(answer)}
-                  language={"java"}
-                  wrapLongLines={true}
-                /> */}
+                {isLoading ? (
+                  <Loader text="Loading" />
+                ) : (
+                  <div className="w-full">
+                    <CopyBlock
+                      text={code}
+                      language="java"
+                      theme={nord}
+                      wrapLongLines
+                      customStyle={{
+                        height: "auto",
+                        overflow: "scroll",
+                      }}
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>

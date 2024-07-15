@@ -36,7 +36,7 @@ const config: Config = {
             secondary: "#52616B",
           },
           accent: {
-            primary: "#788189",
+            primary: "#BCD4DE",
             secondary: "#e1e4e6",
           },
           border: {
