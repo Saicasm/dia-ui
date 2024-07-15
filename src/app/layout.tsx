@@ -18,7 +18,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
       <div className="md:hidden">
         <Header title={"Diaconia"} />
       </div>
-      <div className="hidden md:block flex-grow">
+      <div className="hidden md:block ">
         <Sidenavbar />
       </div>
       <main className="max-h-full flex-grow pr-12 pl-12 md:pl-24 md:pr-24 md:py-10 ">

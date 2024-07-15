@@ -1,8 +1,5 @@
+import { CreateData } from "@/util/types";
 import axiosClient from "..";
-export interface CreateData {
-  image: File;
-  question: string;
-}
 
 // Fetch user data
 export const createImage = async (imageUpload: CreateData): Promise<any> => {
@@ -10,7 +7,7 @@ export const createImage = async (imageUpload: CreateData): Promise<any> => {
   imageFormData.append("image", imageUpload.image);
   imageFormData.append("question", imageUpload.question);
   const response = await axiosClient.postForm(
-    `/api/v1/image/vilt`,
+    `/api/v1/image/${imageUpload.model}`,
     imageFormData
   );
   return response.data;
