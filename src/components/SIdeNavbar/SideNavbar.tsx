@@ -16,8 +16,6 @@ const Sidenavbar = () => {
         <div className="flex flex-col my-4 justify-center align-middle mx-4">
           {appRoute?.map((item, index) => {
             const isActive = pathname === `/${item.routePath}`;
-            console.log(pathname);
-            console.log(isActive);
             return (
               <div
                 className={`flex justify-start items-center h-12 hover:cursor-pointer w-full text-base font-normal rounded-lg transition duration-75 group ${
