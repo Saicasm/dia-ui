@@ -16,8 +16,9 @@ export default function Home() {
   };
   return (
     <RootLayout>
-      <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-light-bg-primary bg-opacity-90">
-        <div className="flex flex-col">Search</div>
+      <main className="flex  shadow-md flex-col items-center justify-between 	 bg-light-bg-primary bg-opacity-90">
+        <div className="flex flex-col">Settings</div>
+        <div></div>
       </main>
     </RootLayout>
   );

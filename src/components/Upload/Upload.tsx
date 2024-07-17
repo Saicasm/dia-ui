@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Icons } from "../Icons/Icons";
+import Image from "next/image";
 
 interface UploadProps {
   /**
    * Optional click handler
    */
-  onFileChange?: (file: any) => void;
+  onFileChange?: (file: File) => void;
   /**
    * The content of the button
    */
@@ -18,6 +19,7 @@ interface UploadProps {
   subtext?: string;
   variant: string;
   uploadTypes?: string;
+  showPreview?: boolean;
 }
 
 const Upload: React.FC<UploadProps> = ({
@@ -28,7 +30,21 @@ const Upload: React.FC<UploadProps> = ({
   subtext = "",
   variant = "primary",
   uploadTypes = "",
+  showPreview = false,
 }) => {
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+      onFileChange?.(file);
+    }
+  };
   function PrimaryVariant() {
     return (
       <>
@@ -40,7 +56,7 @@ const Upload: React.FC<UploadProps> = ({
         </label>
         <input
           className="rounded-lg   text-light-text-primary mx-4 py-2"
-          onChange={onFileChange}
+          onChange={handleFileChange}
           id="file_input"
           type="file"
           style={{ background: "bg-light-bg-secondary" }}
@@ -52,6 +68,17 @@ const Upload: React.FC<UploadProps> = ({
         >
           {subtext}
         </p>
+        {previewImage && showPreview && (
+          <div className="mt-4 w-full">
+            <Image
+              src={previewImage}
+              alt="Preview"
+              width={200}
+              height={200}
+              objectFit="contain"
+            />
+          </div>
+        )}
       </>
     );
   }
@@ -77,10 +104,21 @@ const Upload: React.FC<UploadProps> = ({
               type="file"
               accept={uploadTypes}
               className="hidden"
-              onChange={onFileChange}
+              onChange={handleFileChange}
             />
           </label>
         </div>
+        {previewImage && showPreview && (
+          <div className="mt-4 w-full">
+            <Image
+              src={previewImage}
+              alt="Preview"
+              width={200}
+              height={200}
+              objectFit="contain"
+            />
+          </div>
+        )}
       </>
     );
   }

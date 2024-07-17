@@ -1,7 +1,7 @@
 "use client";
 import { CreateData, CreateDataResponseType } from "@/util/types/index";
 import Button from "@/components/Button/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Upload from "@/components/Upload/Upload";
 import RootLayout from "@/app/layout";
 import Textarea from "@/components/Textarea/Textarea";
@@ -19,16 +19,12 @@ export default function Home() {
   const [prompt, setPrompt] = useState<string>("");
   const [isAlertvisible, setIsAlertVisible] = useState<boolean>(false);
   const [alertMessage, setAlertMessage] = useState<string>("");
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      await setFile(e.target.files[0]);
-      await setIsAlertVisible(true);
-      await setAlertMessage(
-        file ? `Image ${e.target.files[0]} has been sucessfully uploaded` : ""
-      );
-    } else {
-      console.log("No file selected");
-    }
+  const handleFileChange = async (file: File) => {
+    await setFile(file);
+    await setIsAlertVisible(true);
+    await setAlertMessage(
+      file ? `Image ${file} has been sucessfully uploaded` : ""
+    );
   };
   const handlePromptChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPrompt(e.target.value);
@@ -59,6 +55,13 @@ export default function Home() {
     // Code
    ${JSON.stringify(answer)}
   `;
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setIsAlertVisible(false);
+  //   }, 10);
+
+  //   return () => clearTimeout(timer);
+  // }, [10]);
   return (
     <RootLayout>
       <Alert
@@ -78,6 +81,7 @@ export default function Home() {
                 subtext="SVG, PNG or JPG"
                 variant="secondary"
                 uploadTypes=".png,jpg,.jpeg,.tiff,.heic,.bmp"
+                showPreview={true}
               >
                 Upload Image
               </Upload>
