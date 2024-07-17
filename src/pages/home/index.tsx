@@ -55,22 +55,16 @@ export default function Home() {
     // Code
    ${JSON.stringify(answer)}
   `;
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setIsAlertVisible(false);
-  //   }, 10);
 
-  //   return () => clearTimeout(timer);
-  // }, [10]);
   return (
     <RootLayout>
       <Alert
-        duration={10}
+        duration={3000}
         isVisbile={isAlertvisible}
         message={"Image has been successfully uploaded"}
         onDismiss={handleAlertVisibility}
       />
-      <main className="flex min-h-screen flex-col items-center justify-between 	 bg-light-bg-primary bg-opacity-90">
+      <main className="flex min-h-screen flex-col items-center justify-between 	 bg-light-bg-primary dark:bg-dark-bg-primary bg-opacity-90">
         <div className="flex shadow-md  flex-col items-center justify-between	w-full ">
           <div className="flex flex-col justify-evenly w-full ">
             <div className=" border-b-2 font-mono m-4">Image Search Engine</div>

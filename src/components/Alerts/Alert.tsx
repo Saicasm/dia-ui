@@ -72,12 +72,23 @@ const Alert: React.FC<AlertProps> = ({
       ),
     },
   };
-
   const alertType = alertTypes[type] || alertTypes.success; // Default to 'success' if type not found
-
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (isVisbile) {
+      timer = setTimeout(() => {
+        onDismiss();
+      }, duration);
+    }
+    return () => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+    };
+  }, [isVisbile, duration, onDismiss]);
   return (
     <div
-      className={`fixed top-4 left-1/2 transform -translate-x-1/2 ${alertType.bgColor} ${alertType.textColor} p-4 rounded shadow-lg flex items-center transition-opacity duration-${duration} duration-75 ${isVisbile ? "opacity-100" : "opacity-0"}`}
+      className={`fixed top-4 left-1/2 transform -translate-x-1/2 ${alertType.bgColor} ${alertType.textColor} p-4 rounded shadow-lg flex items-center transition-opacity  ${isVisbile ? "opacity-100" : "opacity-0"}`}
       style={{ visibility: isVisbile ? "visible" : "hidden" }}
     >
       <span className="flex-1">{message}</span>
