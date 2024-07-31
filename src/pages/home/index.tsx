@@ -1,11 +1,15 @@
 "use client";
-import { CreateData, CreateDataResponseType } from "@/util/types/index";
+import {
+  CreateData,
+  CreateDataResponseType,
+  CreateDataResponseTypeRetina,
+} from "@/util/types/index";
 import Button from "@/components/Button/Button";
 import { useEffect, useState } from "react";
 import Upload from "@/components/Upload/Upload";
 import RootLayout from "@/app/layout";
 import Textarea from "@/components/Textarea/Textarea";
-import { createImage } from "@/service/home/homeService";
+import { createImage, getRetinaResponse } from "@/service/home/homeService";
 import Loader from "@/components/Loader/Loader";
 import { CopyBlock, nord } from "react-code-blocks";
 import { Icons } from "@/components/Icons/Icons";
@@ -16,10 +20,12 @@ export default function Home() {
   const [file, setFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [answer, setAnswer] = useState<CreateDataResponseType>({ result: [] });
+  const [retinaResponse, setRetinaResponse] =
+    useState<CreateDataResponseTypeRetina>({ result: "" });
   const [prompt, setPrompt] = useState<string>("");
   const [isAlertvisible, setIsAlertVisible] = useState<boolean>(false);
   const [alertMessage, setAlertMessage] = useState<string>("");
-  const [isChecked, setIsChecked] = useState<boolean>(false);
+  const [isChecked, setIsChecked] = useState<boolean>(true);
   const handleFileChange = async (file: File) => {
     await setFile(file);
     await setIsAlertVisible(true);
@@ -42,8 +48,15 @@ export default function Home() {
       };
       try {
         setIsLoading(true);
-        const response: CreateDataResponseType = await createImage(userData);
-        setAnswer(response);
+        console.log(isChecked);
+        if (isChecked) {
+          const response: CreateDataResponseType = await createImage(userData);
+          setAnswer(response);
+        } else {
+          const response: CreateDataResponseTypeRetina =
+            await getRetinaResponse(userData);
+          setRetinaResponse(response);
+        }
         setIsLoading(false);
         // setSuccess(`User created successfully with ID: ${response.id}`);
       } catch (error) {
@@ -59,7 +72,6 @@ export default function Home() {
 
   const handleToggleChange = async () => {
     setIsChecked(!isChecked);
-    console.log(isChecked);
   };
 
   return (
@@ -70,7 +82,7 @@ export default function Home() {
         message={"Image has been successfully uploaded"}
         onDismiss={handleAlertVisibility}
       />
-      <main className="flex min-h-screen flex-col items-center justify-between 	 bg-light-bg-primary dark:bg-dark-bg-primary bg-opacity-90 bg-custom-gradient">
+      <main className="flex  flex-col items-center justify-between 	 bg-light-bg-primary dark:bg-dark-bg-primary ">
         <div className="flex shadow-md  flex-col items-center justify-between	w-full ">
           <div className="flex flex-col justify-evenly w-full ">
             <div className=" border-b-2 font-mono m-4">Image Search Engine</div>
@@ -109,13 +121,13 @@ export default function Home() {
                 </Button>
               </div>
 
-              <div className="m-4 flex w-full flex-col  items-center">
-                <div className="w-full text-sm font-medium leading-6 text-light-text-primary">
+              <div className="m-4 flex w-full flex-col  items-center text-black">
+                <div className="w-full text-sm font-medium leading-6 ">
                   Result
                 </div>
                 {isLoading ? (
                   <Loader text="Loading" />
-                ) : (
+                ) : isChecked ? (
                   <div className="w-full">
                     <CopyBlock
                       text={code}
@@ -124,8 +136,22 @@ export default function Home() {
                       wrapLongLines
                       customStyle={{
                         height: "auto",
-                        overflow: "scroll",
+                        overflow: "overlay",
                       }}
+                    />
+                  </div>
+                ) : (
+                  <div className="w-full">
+                    <CopyBlock
+                      text={` ${JSON.stringify(retinaResponse.result)}`}
+                      language="text"
+                      theme={nord}
+                      wrapLongLines
+                      customStyle={{
+                        height: "auto",
+                        overflow: "overlay",
+                      }}
+                      copied={false}
                     />
                   </div>
                 )}

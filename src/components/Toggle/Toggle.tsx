@@ -31,7 +31,7 @@ const Toggle: React.FC<ToggleProps> = ({
           className="sr-only"
           disabled={disabled}
         />
-        <span className="label flex items-center text-sm font-medium text-light-text-primary dark:text-dark-text-primary">
+        <span className="label flex items-center text-sm font-medium text-black dark:text-dark-text-primary">
           {toggleItems[0]}
         </span>
         <span
@@ -45,7 +45,7 @@ const Toggle: React.FC<ToggleProps> = ({
             }`}
           ></span>
         </span>
-        <span className="label flex items-center text-sm font-medium text-light-text-primary dark:text-dark-text-primary">
+        <span className="label flex items-center text-sm font-medium text-black dark:text-dark-text-primary">
           {toggleItems[1]}
         </span>
       </label>

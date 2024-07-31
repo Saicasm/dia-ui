@@ -11,5 +11,6 @@ export const appRoute: SideNavItem[] = [
     name: "Settings",
     routePath: "settings",
     icon: <Icons.settings />,
+    isDisabled: true,
   },
 ];

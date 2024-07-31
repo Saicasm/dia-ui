@@ -33,7 +33,7 @@ const Textarea: React.FC<TextAreaProps> = ({
       <div className="">
         <label
           htmlFor="about"
-          className=" text-sm font-medium leading-6 text-light-text-primary"
+          className=" text-sm font-medium leading-6 text-black"
         >
           {name}
         </label>
@@ -44,10 +44,10 @@ const Textarea: React.FC<TextAreaProps> = ({
             rows={rowLength}
             placeholder={placeholder}
             onChange={onChange}
-            className="outline-none	block w-ful w-full px-2 rounded-md border-0 py-1.5 text-light-text-primary shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-light-text-secondary  sm:text-sm sm:leading-6"
+            className="outline-none	block w-ful w-full px-2 rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-black  sm:text-sm sm:leading-6"
           ></textarea>
         </div>
-        <p className="mt-3 text-sm leading-6 text-gray-600">{subtitle}</p>
+        <p className="mt-3 text-sm leading-6 ">{subtitle}</p>
       </div>
     </>
   );
