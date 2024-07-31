@@ -72,3 +72,17 @@ Common components are stored in the components/ directory. These components are 
 - `npm run storybook`: Starts Storybook for showcasing UI components.
 - `npm run build-storybook`: Builds Storybook for deployment.
 - `npm test`: Runs unit tests using Jest.
+
+## Running the application
+
+Build the image using
+
+```
+docker build -e NEXT_PUBLIC_BACKEND_URL=http://localhost:5002  -t dia/ui .
+```
+
+Run the image using
+
+```
+docker run -e NEXT_PUBLIC_BACKEND_URL=http://localhost:5002 -p 3000:3000 dia/ui
+```
