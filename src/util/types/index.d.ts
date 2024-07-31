@@ -10,7 +10,7 @@ export type SideNavItem = {
 export interface CreateData {
   image: File;
   question: string;
-  model: Models.VILT;
+  model: Models.VILT | Models.RETINA;
 }
 interface results {
   answer: string;

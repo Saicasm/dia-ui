@@ -19,6 +19,7 @@ export default function Home() {
   const [prompt, setPrompt] = useState<string>("");
   const [isAlertvisible, setIsAlertVisible] = useState<boolean>(false);
   const [alertMessage, setAlertMessage] = useState<string>("");
+  const [isChecked, setIsChecked] = useState<boolean>(false);
   const handleFileChange = async (file: File) => {
     await setFile(file);
     await setIsAlertVisible(true);
@@ -37,7 +38,7 @@ export default function Home() {
       const userData: CreateData = {
         question: prompt,
         image: file,
-        model: Models.VILT,
+        model: isChecked ? Models.RETINA : Models.VILT,
       };
       try {
         setIsLoading(true);
@@ -56,6 +57,11 @@ export default function Home() {
    ${JSON.stringify(answer)}
   `;
 
+  const handleToggleChange = async () => {
+    setIsChecked(!isChecked);
+    console.log(isChecked);
+  };
+
   return (
     <RootLayout>
       <Alert
@@ -64,7 +70,7 @@ export default function Home() {
         message={"Image has been successfully uploaded"}
         onDismiss={handleAlertVisibility}
       />
-      <main className="flex min-h-screen flex-col items-center justify-between 	 bg-light-bg-primary dark:bg-dark-bg-primary bg-opacity-90">
+      <main className="flex min-h-screen flex-col items-center justify-between 	 bg-light-bg-primary dark:bg-dark-bg-primary bg-opacity-90 bg-custom-gradient">
         <div className="flex shadow-md  flex-col items-center justify-between	w-full ">
           <div className="flex flex-col justify-evenly w-full ">
             <div className=" border-b-2 font-mono m-4">Image Search Engine</div>
@@ -90,7 +96,12 @@ export default function Home() {
                 />
               </div>
               <div className="m-4">
-                <Toggle />
+                <Toggle
+                  isChecked={isChecked}
+                  onChange={handleToggleChange}
+                  toggleItems={["RETINA", "VILT"]}
+                  disabled={false}
+                />
               </div>
               <div className="m-4 ">
                 <Button onClick={handleClick} variant="primary">

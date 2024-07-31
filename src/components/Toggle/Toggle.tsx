@@ -1,28 +1,42 @@
 import React, { useState } from "react";
-
-const Switcher12 = () => {
-  const [isChecked, setIsChecked] = useState(true);
-
-  const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
-  };
-
+interface ToggleProps {
+  /**
+   * Optional click handler
+   */
+  onChange?: () => void;
+  /**
+   * The content of the button
+   */
+  children?: React.ReactNode;
+  /**
+   * Additional classes to be added to the button
+   */
+  toggleItems: [string, string];
+  isChecked: boolean;
+  disabled: boolean;
+}
+const Toggle: React.FC<ToggleProps> = ({
+  onChange,
+  isChecked,
+  toggleItems = ["VILT", "RETINA"],
+  disabled = false,
+}) => {
   return (
     <>
       <label className="themeSwitcherTwo relative inline-flex cursor-pointer select-none items-center">
         <input
           type="checkbox"
           checked={isChecked}
-          onChange={handleCheckboxChange}
+          onChange={onChange}
           className="sr-only"
-          disabled
+          disabled={disabled}
         />
-        <span className="label flex items-center text-sm font-medium text-black">
-          RETINA
+        <span className="label flex items-center text-sm font-medium text-light-text-primary dark:text-dark-text-primary">
+          {toggleItems[0]}
         </span>
         <span
           className={`slider mx-4 flex h-8 w-[60px] items-center rounded-full p-1 duration-200 ${
-            isChecked ? "bg-[#212b36]" : "bg-[#CCCCCE]"
+            isChecked ? "bg-light-accent-primary" : "bg-light-bg-tertiary"
           }`}
         >
           <span
@@ -31,12 +45,12 @@ const Switcher12 = () => {
             }`}
           ></span>
         </span>
-        <span className="label flex items-center text-sm font-medium text-black">
-          VILT
+        <span className="label flex items-center text-sm font-medium text-light-text-primary dark:text-dark-text-primary">
+          {toggleItems[1]}
         </span>
       </label>
     </>
   );
 };
 
-export default Switcher12;
+export default Toggle;
