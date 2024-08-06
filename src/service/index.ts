@@ -1,9 +1,6 @@
 import axios from "axios";
-
-const API_BASE_URL = "http://localhost:5002"; // Replace with your actual API base URL
-
 const axiosClient = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
 });
 // Response interceptor
 axiosClient.interceptors.response.use(

@@ -5,12 +5,13 @@ export type SideNavItem = {
   routePath: string;
   name: string;
   icon: React.ReactElement;
+  isDisabled?: boolean;
 };
 
 export interface CreateData {
   image: File;
   question: string;
-  model: Models.VILT;
+  model: Models.VILT | Models.RETINA;
 }
 interface results {
   answer: string;
@@ -20,5 +21,7 @@ interface results {
 export interface CreateDataResponseType {
   result: results[];
 }
-
+export interface CreateDataResponseTypeRetina {
+  result: string;
+}
 export type ModelType = Models.VILT | Models.RETINA;

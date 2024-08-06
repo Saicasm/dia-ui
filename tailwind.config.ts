@@ -32,21 +32,22 @@ const config: Config = {
             tertiary: "#bfc7d1",
           },
           text: {
-            primary: "#1E2022",
+            primary: "#f2f2f2",
             secondary: "#52616B",
           },
           accent: {
-            primary: "#BCD4DE",
+            primary: "#587f2f",
             secondary: "#e1e4e6",
           },
           border: {
-            primary: "#C9D6DF",
+            primary: "#e5e5e5",
             secondary: "bg-gray-500",
           },
         },
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "custom-gradient": "linear-gradient(#549fc0, #013558 100%)",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
@@ -55,13 +56,3 @@ const config: Config = {
   plugins: [],
 };
 export default config;
-// --primary-100:#1E2022;
-// --primary-200:#34373b;
-// --primary-300:#F0F5F9;
-// --accent-100:#788189;
-// --accent-200:#e1e4e6;
-// --text-100:#1E2022;
-// --text-200:#52616B;
-// --bg-100:#F0F5F9;
-// --bg-200:#C9D6DF;
-// --bg-300:#bfc7d1;

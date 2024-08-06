@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Icons } from "../Icons/Icons";
+import Image from "next/image";
 
 interface UploadProps {
   /**
    * Optional click handler
    */
-  onFileChange?: (file: any) => void;
+  onFileChange?: (file: File) => void;
   /**
    * The content of the button
    */
@@ -18,6 +19,7 @@ interface UploadProps {
   subtext?: string;
   variant: string;
   uploadTypes?: string;
+  showPreview?: boolean;
 }
 
 const Upload: React.FC<UploadProps> = ({
@@ -28,7 +30,21 @@ const Upload: React.FC<UploadProps> = ({
   subtext = "",
   variant = "primary",
   uploadTypes = "",
+  showPreview = false,
 }) => {
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+      onFileChange?.(file);
+    }
+  };
   function PrimaryVariant() {
     return (
       <>
@@ -40,7 +56,7 @@ const Upload: React.FC<UploadProps> = ({
         </label>
         <input
           className="rounded-lg   text-light-text-primary mx-4 py-2"
-          onChange={onFileChange}
+          onChange={handleFileChange}
           id="file_input"
           type="file"
           style={{ background: "bg-light-bg-secondary" }}
@@ -52,6 +68,17 @@ const Upload: React.FC<UploadProps> = ({
         >
           {subtext}
         </p>
+        {previewImage && showPreview && (
+          <div className="mt-4 w-full">
+            <Image
+              src={previewImage}
+              alt="Preview"
+              width={200}
+              height={200}
+              objectFit="contain"
+            />
+          </div>
+        )}
       </>
     );
   }
@@ -62,11 +89,11 @@ const Upload: React.FC<UploadProps> = ({
         <div className="flex items-center justify-center w-full">
           <label
             htmlFor="dropzone-file"
-            className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed text-light-text-primary rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+            className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed text-black rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
           >
             <div className="flex flex-col items-center justify-center pt-5 pb-6">
               <Icons.upload />
-              <p className="mb-2 text-sm ">
+              <p className="mb-2 text-sm text-black">
                 <span className="font-semibold">Click to upload</span> or drag
                 and drop
               </p>
@@ -77,10 +104,21 @@ const Upload: React.FC<UploadProps> = ({
               type="file"
               accept={uploadTypes}
               className="hidden"
-              onChange={onFileChange}
+              onChange={handleFileChange}
             />
           </label>
         </div>
+        {previewImage && showPreview && (
+          <div className="mt-4 w-full">
+            <Image
+              src={previewImage}
+              alt="Preview"
+              width={200}
+              height={200}
+              objectFit="contain"
+            />
+          </div>
+        )}
       </>
     );
   }

@@ -7,9 +7,10 @@ export const appRoute: SideNavItem[] = [
     routePath: "home",
     icon: <Icons.home />,
   },
-  // {
-  //   name: "Search",
-  //   routePath: "search",
-  //   icon: <Icons.search />,
-  // },
+  {
+    name: "Settings",
+    routePath: "settings",
+    icon: <Icons.settings />,
+    isDisabled: true,
+  },
 ];

@@ -25,7 +25,7 @@ const Textarea: React.FC<TextAreaProps> = ({
   subtitle = "",
   name = "",
   rowLength = 3,
-  placeholder = "Search",
+  placeholder = "Ask your question...",
 }) => {
   return (
     <>
@@ -33,21 +33,21 @@ const Textarea: React.FC<TextAreaProps> = ({
       <div className="">
         <label
           htmlFor="about"
-          className=" text-sm font-medium leading-6 text-light-text-primary"
+          className=" text-sm font-medium leading-6 text-black"
         >
           {name}
         </label>
-        <div className="mt-2">
+        <div className="mt-2 bg-gradient-to-br from-green-800 to-red-500 p-0.5 rounded-md ">
           <textarea
             id="about"
             name="about"
             rows={rowLength}
             placeholder={placeholder}
             onChange={onChange}
-            className="outline-none	block w-ful w-full px-2 rounded-md border-0 py-1.5 text-light-text-primary shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-light-text-secondary  sm:text-sm sm:leading-6"
+            className="outline-none rounded	block w-ful w-full px-2  py-1.5  shadow-sm ring-inset ring-gray-300 placeholder:text-black  sm:text-sm sm:leading-6"
           ></textarea>
         </div>
-        <p className="mt-3 text-sm leading-6 text-gray-600">{subtitle}</p>
+        <p className="mt-3 text-sm leading-6 ">{subtitle}</p>
       </div>
     </>
   );
