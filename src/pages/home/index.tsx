@@ -101,10 +101,11 @@ export default function Home() {
             <div className="m-4 flex flex-col  items-center">
               <div className="m-4 w-full">
                 <Textarea
-                  name="Prompt"
-                  subtitle="Enter the prompt that you want to search against the image"
-                  rowLength={2}
+                  name="Question"
+                  subtitle=""
+                  rowLength={3}
                   onChange={handlePromptChange}
+                  placeholder="Ask your question...."
                 />
               </div>
               <div className="m-4">
