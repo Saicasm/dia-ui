@@ -92,7 +92,7 @@ export default function Home() {
                 onFileChange={handleFileChange}
                 subtext="SVG, PNG or JPG"
                 variant="secondary"
-                uploadTypes=".png,jpg,.jpeg,.tiff,.heic,.bmp"
+                uploadTypes=".png,.jpg,.jpeg,.tiff,.heic,.bmp"
                 showPreview={true}
               >
                 Upload Image
