@@ -20,7 +20,12 @@ jobs:
         with:
           username: ${{ vars.DOCKER_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_DEBUG: false
+          envkey_NEXT_PUBLIC_BACKEND_URL: "http://localhost:5002"
+          file_name: .env
       # - name: Docker Hub Description
       #   uses: peter-evans/dockerhub-description@v3
       #   with:
